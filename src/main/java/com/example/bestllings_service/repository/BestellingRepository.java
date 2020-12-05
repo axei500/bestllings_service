@@ -10,4 +10,6 @@ import java.util.List;
 public interface BestellingRepository extends JpaRepository<Bestelling, Integer> {
     List<Bestelling> findBestellingByEmailContaining(String email);
 
+    List<Bestelling> findBestellingByFietsSerienummerContaining(String fietsSerienummer);
+
 }

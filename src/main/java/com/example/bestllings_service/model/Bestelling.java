@@ -1,7 +1,10 @@
 package com.example.bestllings_service.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Bestelling {
@@ -12,20 +15,22 @@ public class Bestelling {
 
     private String email;
 
-    private Date bestel_datum;
+    private LocalDateTime bestelDatum;
+    private int voorschot;
+    private int prijs;
 
-    private String fiets_serienummer;
+    private String fietsSerienummer;
     //eventuel voor appart onderdelen te bestellen
-    private String onderdeel_serienummer;
+    private String onderdeelSerienummer;
 
     public Bestelling() {
 
     }
 
-    public Bestelling(String email,Date bestel_datum, String fiets_serienummer) {
+    public Bestelling(String email, LocalDateTime bestelDatum, String fietsSerienummer) {
         this.email = email;
-        this.bestel_datum = bestel_datum;
-        this.fiets_serienummer = fiets_serienummer;
+        this.bestelDatum = bestelDatum;
+        this.fietsSerienummer = fietsSerienummer;
     }
 
     public String getEmail() {
@@ -36,27 +41,43 @@ public class Bestelling {
         this.email = email;
     }
 
-    public Date getBestel_datum() {
-        return bestel_datum;
+    public LocalDateTime getBestelDatum() {
+        return bestelDatum;
     }
 
-    public void setBestel_datum(Date bestel_datum) {
-        this.bestel_datum = bestel_datum;
+    public void setBestelDatum(LocalDateTime bestel_datum) {
+        this.bestelDatum = bestel_datum;
     }
 
-    public String getFiets_serienummer() {
-        return fiets_serienummer;
+    public String getFietsSerienummer() {
+        return fietsSerienummer;
     }
 
-    public void setFiets_serienummer(String fiets_serienummer) {
-        this.fiets_serienummer = fiets_serienummer;
+    public void setFietsSerienummer(String fiets_serienummer) {
+        this.fietsSerienummer = fiets_serienummer;
     }
 
-    public String getOnderdeel_serienummer() {
-        return onderdeel_serienummer;
+    public String getOnderdeelSerienummer() {
+        return onderdeelSerienummer;
     }
 
-    public void setOnderdeel_serienummer(String onderdeel_serienummer) {
-        this.onderdeel_serienummer = onderdeel_serienummer;
+    public void setOnderdeelSerienummer(String onderdeel_serienummer) {
+        this.onderdeelSerienummer = onderdeel_serienummer;
+    }
+
+    public int getVoorschot() {
+        return voorschot;
+    }
+
+    public void setVoorschot(int voorschot) {
+        this.voorschot = voorschot;
+    }
+
+    public int getPrijs() {
+        return prijs;
+    }
+
+    public void setPrijs(int prijs) {
+        this.prijs = prijs;
     }
 }
