@@ -27,10 +27,12 @@ public class Bestelling {
 
     }
 
-    public Bestelling(String LeverancierBonNummer, String email, LocalDateTime bestelDatum) {
-        this.LeverancierBonNummer = LeverancierBonNummer;
-        this.email = email;
-        this.bestelDatum = bestelDatum;
+    public Bestelling(String LeverancierBonNummer, String email, LocalDateTime bestelDatum, int prijs, int voorschot) {
+        setLeverancierBonNummer(LeverancierBonNummer);
+        setEmail(email);
+        setBestelDatum(bestelDatum);
+        setPrijs(prijs);
+        setVoorschot(voorschot);
     }
 
     public String getEmail() {
@@ -79,5 +81,13 @@ public class Bestelling {
 
     public void setPrijs(int prijs) {
         this.prijs = prijs;
+    }
+
+    public String getLeverancierBonNummer() {
+        return LeverancierBonNummer;
+    }
+
+    public void setLeverancierBonNummer(String leverancierBonNummer) {
+        LeverancierBonNummer = leverancierBonNummer;
     }
 }

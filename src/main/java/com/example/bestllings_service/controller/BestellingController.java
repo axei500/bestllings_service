@@ -3,9 +3,8 @@ package com.example.bestllings_service.controller;
 import com.example.bestllings_service.model.Bestelling;
 import com.example.bestllings_service.repository.BestellingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -20,8 +19,8 @@ public class BestellingController {
     @PostConstruct
     public void fillDB() {
         if (bestellingRepository.count() == 0) {
-            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Test@hotmail.com", LocalDateTime.now()));
-            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Een@een.be", LocalDateTime.now()));
+            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Test@hotmail.com", LocalDateTime.now(), 50, 20));
+            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Een@een.be", LocalDateTime.now(), 50, 10));
         }
         System.out.println(bestellingRepository.findBestellingByEmailContaining("Test@hotmail.com"));
     }
@@ -44,5 +43,37 @@ public class BestellingController {
     @GetMapping("/bestelling/{leverancierBonNummer}")
     public Bestelling getBestellingByleverancierBonNummer(@PathVariable String leverancierBonNummer) {
         return bestellingRepository.findBestellingByLeverancierBonNummer(leverancierBonNummer);
+    }
+
+    @PostMapping("/bestellingen")
+    public Bestelling addBestelling(@RequestBody Bestelling bestelling) {
+
+        bestellingRepository.save(bestelling);
+
+        return bestelling;
+    }
+
+    @PutMapping("/bestellingen")
+    public Bestelling updateBestelling(@RequestBody Bestelling updatedBestelling) {
+        Bestelling retrievedBestelling = bestellingRepository.findBestellingByLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
+
+        retrievedBestelling.setLeverancierBonNummer(retrievedBestelling.getLeverancierBonNummer());
+        retrievedBestelling.setFietsSerienummer(retrievedBestelling.getFietsSerienummer());
+        retrievedBestelling.setOnderdeelSerienummer(retrievedBestelling.getOnderdeelSerienummer());
+
+        bestellingRepository.save(retrievedBestelling);
+
+        return retrievedBestelling;
+    }
+
+    @DeleteMapping("/bestelling/{leverancierBonNummer}")
+    public ResponseEntity deleteBestelling(@PathVariable String leverancierBonNummer) {
+        Bestelling bestelling = bestellingRepository.findBestellingByLeverancierBonNummer(leverancierBonNummer);
+        if (bestelling != null) {
+            bestellingRepository.delete(bestelling);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
