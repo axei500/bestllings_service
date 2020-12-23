@@ -20,19 +20,29 @@ public class BestellingController {
     @PostConstruct
     public void fillDB() {
         if (bestellingRepository.count() == 0) {
-            bestellingRepository.save(new Bestelling("Test@hotmail.com", LocalDateTime.now(), "0d5qdq1dq3"));
-            bestellingRepository.save(new Bestelling("Een@een.be", LocalDateTime.now(), "0d5qdq1dq3"));
+            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Test@hotmail.com", LocalDateTime.now()));
+            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Een@een.be", LocalDateTime.now()));
         }
         System.out.println(bestellingRepository.findBestellingByEmailContaining("Test@hotmail.com"));
     }
 
-    @GetMapping("/Bestellingen/email/{email}")
-    public List<Bestelling> getBooksByTitle(@PathVariable String email) {
+    @GetMapping("/bestellingen/email/{email}")
+    public List<Bestelling> getBestelligenByEmail(@PathVariable String email) {
         return bestellingRepository.findBestellingByEmailContaining(email);
     }
 
-    @GetMapping("/Bestellingen/{fietsSerienummer}")
-    public List<Bestelling> getBookByISBN(@PathVariable String fietsSerienummer) {
+    @GetMapping("/bestellingen/onderdeel/{onderdeelSerienummer}")
+    public List<Bestelling> getBestellingenByOnderdeelSerienummer(@PathVariable String onderdeelSerienummer) {
+        return bestellingRepository.findBestellingByOnderdeelSerienummerContaining(onderdeelSerienummer);
+    }
+
+    @GetMapping("/bestellingen/fiets/{fietsSerienummer}")
+    public List<Bestelling> getBestellingenByFietsNummer(@PathVariable String fietsSerienummer) {
         return bestellingRepository.findBestellingByFietsSerienummerContaining(fietsSerienummer);
+    }
+
+    @GetMapping("/bestelling/{leverancierBonNummer}")
+    public Bestelling getBestellingByleverancierBonNummer(@PathVariable String leverancierBonNummer) {
+        return bestellingRepository.findBestellingByLeverancierBonNummer(leverancierBonNummer);
     }
 }

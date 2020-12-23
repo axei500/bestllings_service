@@ -8,8 +8,12 @@ import java.util.List;
 
 @Repository
 public interface BestellingRepository extends JpaRepository<Bestelling, Integer> {
+    Bestelling findBestellingByLeverancierBonNummer(String leverancierBonNummer);
+
     List<Bestelling> findBestellingByEmailContaining(String email);
 
     List<Bestelling> findBestellingByFietsSerienummerContaining(String fietsSerienummer);
+
+    List<Bestelling> findBestellingByOnderdeelSerienummerContaining(String onderdeelSerienummer);
 
 }
