@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -135,5 +136,23 @@ public class BestellingsControllerUnitTests {
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
+    }
+
+    // Post bestteling
+    @Test
+    public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {
+        Bestelling bestelling = new Bestelling("test3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        bestelling.setFietsSerienummer("testPost");
+
+        mockMvc.perform(post("/bestellingen")
+                .content(mapper.writeValueAsString(bestelling))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.leverancierBonNummer", is("test3")))
+                .andExpect(jsonPath("$.fietsSerienummer", is("testPost")))
+                .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
+                .andExpect(jsonPath("$.voorschot", is(20)))
+                .andExpect(jsonPath("$.prijs", is(50)));
     }
 }
