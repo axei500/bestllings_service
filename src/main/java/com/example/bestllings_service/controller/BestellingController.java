@@ -57,9 +57,13 @@ public class BestellingController {
     public Bestelling updateBestelling(@RequestBody Bestelling updatedBestelling) {
         Bestelling retrievedBestelling = bestellingRepository.findBestellingByLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
 
-        retrievedBestelling.setLeverancierBonNummer(retrievedBestelling.getLeverancierBonNummer());
-        retrievedBestelling.setFietsSerienummer(retrievedBestelling.getFietsSerienummer());
-        retrievedBestelling.setOnderdeelSerienummer(retrievedBestelling.getOnderdeelSerienummer());
+        retrievedBestelling.setLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
+        retrievedBestelling.setFietsSerienummer(updatedBestelling.getFietsSerienummer());
+        retrievedBestelling.setOnderdeelSerienummer(updatedBestelling.getOnderdeelSerienummer());
+        retrievedBestelling.setBestelDatum(updatedBestelling.getBestelDatum());
+        retrievedBestelling.setVoorschot(updatedBestelling.getVoorschot());
+        retrievedBestelling.setPrijs(updatedBestelling.getPrijs());
+        retrievedBestelling.setEmail(updatedBestelling.getEmail());
 
         bestellingRepository.save(retrievedBestelling);
 

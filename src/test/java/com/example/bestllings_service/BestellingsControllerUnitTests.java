@@ -19,8 +19,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -154,5 +153,50 @@ public class BestellingsControllerUnitTests {
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
                 .andExpect(jsonPath("$.prijs", is(50)));
+    }
+
+    // put
+    @Test
+    public void givenBestelling_whenPutBestelling_thenReturnJsonBestelling() throws Exception {
+        Bestelling bestelling = new Bestelling("test4", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        bestelling.setFietsSerienummer("testPut");
+
+        given(bestellingRepository.findBestellingByLeverancierBonNummer("test4")).willReturn(bestelling);
+
+        Bestelling updatedBestelling = new Bestelling("test4", "Test@hotmail.com", LocalDateTime.now(), 50, 30);
+        updatedBestelling.setFietsSerienummer(null);
+        updatedBestelling.setOnderdeelSerienummer("testPut");
+
+        mockMvc.perform(put("/bestellingen")
+                .content(mapper.writeValueAsString(updatedBestelling))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.leverancierBonNummer", is("test4")))
+                //.andExpect(jsonPath("$.fietsSerienummer", is(null)))
+                .andExpect(jsonPath("$.onderdeelSerienummer", is("testPut")))
+                .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
+                .andExpect(jsonPath("$.voorschot", is(30)))
+                .andExpect(jsonPath("$.prijs", is(50)));
+    }
+
+    @Test
+    public void givenBestelling_whenDeleteBestelling_thenStatusOk() throws Exception {
+        Bestelling bestelling = new Bestelling("testD", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+
+        given(bestellingRepository.findBestellingByLeverancierBonNummer("testD")).willReturn(bestelling);
+
+        mockMvc.perform(delete("/bestelling/{leverancierBonNummer}", "testD")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void givenNoBestelling_whenDeleteBestelling_thenStatusNotFound() throws Exception {
+        given(bestellingRepository.findBestellingByLeverancierBonNummer("testD")).willReturn(null);
+
+        mockMvc.perform(delete("/bestelling/{leverancierBonNummer}", "testD")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
