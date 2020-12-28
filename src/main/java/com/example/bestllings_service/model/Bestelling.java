@@ -11,7 +11,7 @@ public class Bestelling {
     private int id;
 
     @Column(unique = true)
-    private String LeverancierBonNummer;
+    private String leverancierBonNummer;
 
     private String email;
 
@@ -84,10 +84,10 @@ public class Bestelling {
     }
 
     public String getLeverancierBonNummer() {
-        return LeverancierBonNummer;
+        return leverancierBonNummer;
     }
 
     public void setLeverancierBonNummer(String leverancierBonNummer) {
-        LeverancierBonNummer = leverancierBonNummer;
+        this.leverancierBonNummer = leverancierBonNummer;
     }
 }
