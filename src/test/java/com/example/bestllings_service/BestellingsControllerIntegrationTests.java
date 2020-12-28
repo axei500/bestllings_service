@@ -156,7 +156,7 @@ public class BestellingsControllerIntegrationTests {
     @Test
     public void givenBestelling_whenPutBestelling_thenReturnJsonBestelling() throws Exception {
 
-        Bestelling bestellingPut = new Bestelling("test3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestellingPut = new Bestelling("testB1", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         bestellingPut.setOnderdeelSerienummer("testPost");
         bestellingPut.setFietsSerienummer(null);
 
@@ -165,7 +165,7 @@ public class BestellingsControllerIntegrationTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.leverancierBonNummer", is("test3")))
+                .andExpect(jsonPath("$.leverancierBonNummer", is("testB1")))
                 .andExpect(jsonPath("$.onderdeelSerienummer", is("testPost")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
