@@ -60,7 +60,7 @@ public class BestellingController {
         retrievedBestelling.setLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
         retrievedBestelling.setFietsSerienummer(updatedBestelling.getFietsSerienummer());
         retrievedBestelling.setOnderdeelSerienummer(updatedBestelling.getOnderdeelSerienummer());
-        retrievedBestelling.setBestelDatum(updatedBestelling.getBestelDatum());
+        //retrievedBestelling.setBestelDatum(updatedBestelling.getBestelDatum());
         retrievedBestelling.setVoorschot(updatedBestelling.getVoorschot());
         retrievedBestelling.setPrijs(updatedBestelling.getPrijs());
         retrievedBestelling.setEmail(updatedBestelling.getEmail());
