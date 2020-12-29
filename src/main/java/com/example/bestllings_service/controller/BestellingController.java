@@ -19,8 +19,8 @@ public class BestellingController {
     @PostConstruct
     public void fillDB() {
         if (bestellingRepository.count() == 0) {
-            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Test@hotmail.com", LocalDateTime.now(), 50, 20));
-            bestellingRepository.save(new Bestelling("0d5qdq1dq3", "Een@een.be", LocalDateTime.now(), 50, 10));
+            bestellingRepository.save(new Bestelling("gegvens1", "Test@hotmail.com", LocalDateTime.now(), 50, 20));
+            bestellingRepository.save(new Bestelling("gegvens2", "Een@een.be", LocalDateTime.now(), 50, 10));
         }
         System.out.println(bestellingRepository.findBestellingByEmailContaining("Test@hotmail.com"));
     }
@@ -57,7 +57,7 @@ public class BestellingController {
     public Bestelling updateBestelling(@RequestBody Bestelling updatedBestelling) {
         Bestelling retrievedBestelling = bestellingRepository.findBestellingByLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
 
-        retrievedBestelling.setLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
+        //retrievedBestelling.setLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
         retrievedBestelling.setFietsSerienummer(updatedBestelling.getFietsSerienummer());
         retrievedBestelling.setOnderdeelSerienummer(updatedBestelling.getOnderdeelSerienummer());
         //retrievedBestelling.setBestelDatum(updatedBestelling.getBestelDatum());
