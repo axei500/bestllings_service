@@ -52,8 +52,8 @@ public class BestellingsControllerUnitTests {
     // multiple get by email
     @Test
     public void givenBestellingen_whenGetBestellingenByEmail_thenReturnJsonBestellingen() throws Exception {
-        Bestelling bestelling1 = new Bestelling("0d5qdq1dq3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        Bestelling bestelling2 = new Bestelling("test2", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
+        Bestelling bestelling1 = new Bestelling("testU1", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling2 = new Bestelling("testU2", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
         List<Bestelling> bestellingList = new ArrayList<>();
         bestellingList.add(bestelling1);
@@ -65,11 +65,11 @@ public class BestellingsControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].leverancierBonNummer", is("0d5qdq1dq3")))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU1")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
-                .andExpect(jsonPath("$[1].leverancierBonNummer", is("test2")))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU2")))
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
@@ -78,8 +78,8 @@ public class BestellingsControllerUnitTests {
     // Multiple get by onderdeelnummer
     @Test
     public void givenBestellingen_whenGetBestelligenByOnderdeelSeriNummer_thenReturnJsonBestelligen() throws Exception {
-        Bestelling bestelling1 = new Bestelling("test1", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        Bestelling bestelling2 = new Bestelling("test2", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
+        Bestelling bestelling1 = new Bestelling("testU3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling2 = new Bestelling("testU4", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
         bestelling1.setOnderdeelSerienummer("test");
         bestelling2.setOnderdeelSerienummer("test");
@@ -94,12 +94,12 @@ public class BestellingsControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].leverancierBonNummer", is("test1")))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU3")))
                 .andExpect(jsonPath("$[0].onderdeelSerienummer", is("test")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
-                .andExpect(jsonPath("$[1].leverancierBonNummer", is("test2")))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU4")))
                 .andExpect(jsonPath("$[1].onderdeelSerienummer", is("test")))
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
@@ -109,8 +109,8 @@ public class BestellingsControllerUnitTests {
     // Multiple get by fietsserienummer
     @Test
     public void givenBestellingen_whenGetBestelligenByFietsSeriNummer_thenReturnJsonBestelligen() throws Exception {
-        Bestelling bestelling1 = new Bestelling("test1", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        Bestelling bestelling2 = new Bestelling("test2", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
+        Bestelling bestelling1 = new Bestelling("testU5", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling2 = new Bestelling("testU6", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
         bestelling1.setFietsSerienummer("test");
         bestelling2.setFietsSerienummer("test");
@@ -125,12 +125,12 @@ public class BestellingsControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].leverancierBonNummer", is("test1")))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU5")))
                 .andExpect(jsonPath("$[0].fietsSerienummer", is("test")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
-                .andExpect(jsonPath("$[1].leverancierBonNummer", is("test2")))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU6")))
                 .andExpect(jsonPath("$[1].fietsSerienummer", is("test")))
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
@@ -140,7 +140,7 @@ public class BestellingsControllerUnitTests {
     // Post bestteling
     @Test
     public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {
-        Bestelling bestelling = new Bestelling("test3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling = new Bestelling("testU7", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         bestelling.setFietsSerienummer("testPost");
 
         mockMvc.perform(post("/bestellingen")
@@ -148,7 +148,7 @@ public class BestellingsControllerUnitTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.leverancierBonNummer", is("test3")))
+                .andExpect(jsonPath("$.leverancierBonNummer", is("testU7")))
                 .andExpect(jsonPath("$.fietsSerienummer", is("testPost")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
@@ -158,12 +158,12 @@ public class BestellingsControllerUnitTests {
     // put
     @Test
     public void givenBestelling_whenPutBestelling_thenReturnJsonBestelling() throws Exception {
-        Bestelling bestelling = new Bestelling("test4", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling = new Bestelling("testU8", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         bestelling.setFietsSerienummer("testPut");
 
-        given(bestellingRepository.findBestellingByLeverancierBonNummer("test4")).willReturn(bestelling);
+        given(bestellingRepository.findBestellingByLeverancierBonNummer("testU8")).willReturn(bestelling);
 
-        Bestelling updatedBestelling = new Bestelling("test4", "Test@hotmail.com", LocalDateTime.now(), 50, 30);
+        Bestelling updatedBestelling = new Bestelling("testU8", "Test@hotmail.com", LocalDateTime.now(), 50, 30);
         updatedBestelling.setFietsSerienummer(null);
         updatedBestelling.setOnderdeelSerienummer("testPut");
 
@@ -172,7 +172,7 @@ public class BestellingsControllerUnitTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.leverancierBonNummer", is("test4")))
+                .andExpect(jsonPath("$.leverancierBonNummer", is("testU8")))
                 //.andExpect(jsonPath("$.fietsSerienummer", is(null)))
                 .andExpect(jsonPath("$.onderdeelSerienummer", is("testPut")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
@@ -193,9 +193,9 @@ public class BestellingsControllerUnitTests {
 
     @Test
     public void givenNoBestelling_whenDeleteBestelling_thenStatusNotFound() throws Exception {
-        given(bestellingRepository.findBestellingByLeverancierBonNummer("testD")).willReturn(null);
+        given(bestellingRepository.findBestellingByLeverancierBonNummer("testD1")).willReturn(null);
 
-        mockMvc.perform(delete("/bestelling/{leverancierBonNummer}", "testD")
+        mockMvc.perform(delete("/bestelling/{leverancierBonNummer}", "testD1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
