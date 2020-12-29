@@ -180,8 +180,7 @@ public class BestellingsControllerIntegrationTests {
                 .andExpect(status().isOk());
     }
 
-
-    //TODO fix this test
+    
     @Test
     public void givenNoBestelling_whenDeleteBestelling_thenStatusNotFound() throws Exception {
 
