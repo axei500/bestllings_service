@@ -18,6 +18,8 @@ services:
   bestellings_service:
     image: axei500/bestellings-service:latest
     container_name: bestellings_service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/testdb
     expose:
       - 8080
     ports:
