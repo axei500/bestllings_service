@@ -2,7 +2,6 @@ version: "3"
 services:
   postgres:
     image: postgres:latest
-    network_mode: bridge
     container_name: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -18,7 +17,6 @@ services:
   # APP*****************************************
   bestellings_service:
     image: axei500/bestellings-service:latest
-    network_mode: bridge
     container_name: bestellings_service
     expose:
       - 8080
