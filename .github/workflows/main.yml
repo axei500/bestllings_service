@@ -47,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: artifact
-        path: ./target/spring-github-actions-demo-0.1.jar
+        path: ./target/bestllings_service-0.0.1-SNAPSHOT.jar
