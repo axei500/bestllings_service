@@ -49,10 +49,10 @@ jobs:
         name: artifact
         path: ./target/bestllings_service-0.0.1-SNAPSHOT.jar
 
-          - name: Docker login
-            run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+        - name: Docker login
+          run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-          - name: Docker build
-            run: docker build -t ${{ secrets.DOCKER_USER }}/bestellings-service:latest .
-          - name: Upload to docker
-            run: docker push ${{ secrets.DOCKER_USER }}/bestellings-service:latest
+        - name: Docker build
+          run: docker build -t ${{ secrets.DOCKER_USER }}/bestellings-service:latest .
+        - name: Upload to docker
+          run: docker push ${{ secrets.DOCKER_USER }}/bestellings-service:latest
