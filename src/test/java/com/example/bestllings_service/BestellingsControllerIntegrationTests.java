@@ -39,10 +39,14 @@ public class BestellingsControllerIntegrationTests {
 
     @BeforeEach
     public void beforeAllTests() {
-        bestelling1.setOnderdeelSerienummer("test");
-        bestelling2.setOnderdeelSerienummer("test");
-        bestelling3.setFietsSerienummer("test");
-        bestelling5.setFietsSerienummer("test");
+        bestelling1.setOnderdeelMerk("test");
+        bestelling1.setOnderdeelNaam("test");
+        bestelling2.setOnderdeelMerk("test");
+        bestelling2.setOnderdeelNaam("test");
+        bestelling3.setFietsModel("test");
+        bestelling3.setFietsMerk("test");
+        bestelling5.setFietsModel("test");
+        bestelling5.setFietsMerk("test");
         bestellingRepository.deleteAll();
         bestellingRepository.save(bestelling1);
         bestellingRepository.save(bestelling2);
@@ -102,12 +106,14 @@ public class BestellingsControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].leverancierBonNummer", is("testB1")))
-                .andExpect(jsonPath("$[0].onderdeelSerienummer", is("test")))
+                .andExpect(jsonPath("$[0].onderdeelMerk", is("test")))
+                .andExpect(jsonPath("$[0].onderdeelNaam", is("test")))
                 .andExpect(jsonPath("$[0].email", is("User1@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(50)))
                 .andExpect(jsonPath("$[0].prijs", is(200)))
                 .andExpect(jsonPath("$[1].leverancierBonNummer", is("testB2")))
-                .andExpect(jsonPath("$[1].onderdeelSerienummer", is("test")))
+                .andExpect(jsonPath("$[1].onderdeelMerk", is("test")))
+                .andExpect(jsonPath("$[1].onderdeelNaam", is("test")))
                 .andExpect(jsonPath("$[1].email", is("User1@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(500)))
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
@@ -125,12 +131,14 @@ public class BestellingsControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].leverancierBonNummer", is("testB3")))
-                .andExpect(jsonPath("$[0].fietsSerienummer", is("test")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("test")))
                 .andExpect(jsonPath("$[0].email", is("User2@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(100)))
                 .andExpect(jsonPath("$[0].prijs", is(500)))
                 .andExpect(jsonPath("$[1].leverancierBonNummer", is("testB4")))
-                .andExpect(jsonPath("$[0].fietsSerienummer", is("test")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("test")))
                 .andExpect(jsonPath("$[1].email", is("User2@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(100)))
                 .andExpect(jsonPath("$[1].prijs", is(500)));
@@ -139,7 +147,8 @@ public class BestellingsControllerIntegrationTests {
     @Test
     public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {
         Bestelling bestellingPost = new Bestelling("test3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        bestellingPost.setFietsSerienummer("testPost");
+        bestellingPost.setFietsMerk("testPost");
+        bestellingPost.setFietsModel("testPost");
 
         mockMvc.perform(post("/bestellingen")
                 .content(mapper.writeValueAsString(bestellingPost))
@@ -147,7 +156,8 @@ public class BestellingsControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.leverancierBonNummer", is("test3")))
-                .andExpect(jsonPath("$.fietsSerienummer", is("testPost")))
+                .andExpect(jsonPath("$.fietsMerk", is("testPost")))
+                .andExpect(jsonPath("$.fietsModel", is("testPost")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
                 .andExpect(jsonPath("$.prijs", is(50)));
@@ -157,8 +167,10 @@ public class BestellingsControllerIntegrationTests {
     public void givenBestelling_whenPutBestelling_thenReturnJsonBestelling() throws Exception {
 
         Bestelling bestellingPut = new Bestelling("testB1", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        bestellingPut.setOnderdeelSerienummer("testPost");
-        bestellingPut.setFietsSerienummer(null);
+        bestellingPut.setOnderdeelMerk("testPost");
+        bestellingPut.setOnderdeelNaam("testPost");
+        bestellingPut.setFietsModel(null);
+        bestellingPut.setFietsMerk(null);
 
         mockMvc.perform(put("/bestellingen")
                 .content(mapper.writeValueAsString(bestellingPut))
@@ -166,7 +178,8 @@ public class BestellingsControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.leverancierBonNummer", is("testB1")))
-                .andExpect(jsonPath("$.onderdeelSerienummer", is("testPost")))
+                .andExpect(jsonPath("$.onderdeelMerk", is("testPost")))
+                .andExpect(jsonPath("$.onderdeelNaam", is("testPost")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
                 .andExpect(jsonPath("$.prijs", is(50)));

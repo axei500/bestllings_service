@@ -81,8 +81,10 @@ public class BestellingsControllerUnitTests {
         Bestelling bestelling1 = new Bestelling("testU3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         Bestelling bestelling2 = new Bestelling("testU4", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
-        bestelling1.setOnderdeelSerienummer("test");
-        bestelling2.setOnderdeelSerienummer("test");
+        bestelling1.setOnderdeelNaam("test");
+        bestelling1.setOnderdeelMerk("vav");
+        bestelling2.setOnderdeelMerk("test");
+        bestelling2.setOnderdeelMerk("vav");
 
         List<Bestelling> bestellingList = new ArrayList<>();
         bestellingList.add(bestelling1);
@@ -95,12 +97,14 @@ public class BestellingsControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU3")))
-                .andExpect(jsonPath("$[0].onderdeelSerienummer", is("test")))
+                .andExpect(jsonPath("$[0].onderdeelNaam", is("test")))
+                .andExpect(jsonPath("$[0].onderdeelMerk", is("vav")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
                 .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU4")))
-                .andExpect(jsonPath("$[1].onderdeelSerienummer", is("test")))
+                .andExpect(jsonPath("$[1].onderdeelNaam", is("test")))
+                .andExpect(jsonPath("$[1].onderdeelMerk", is("vav")))
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
@@ -112,8 +116,10 @@ public class BestellingsControllerUnitTests {
         Bestelling bestelling1 = new Bestelling("testU5", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         Bestelling bestelling2 = new Bestelling("testU6", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
-        bestelling1.setFietsSerienummer("test");
-        bestelling2.setFietsSerienummer("test");
+        bestelling1.setFietsMerk("test");
+        bestelling1.setFietsModel("vav");
+        bestelling2.setFietsMerk("test");
+        bestelling2.setFietsModel("vav");
 
         List<Bestelling> bestellingList = new ArrayList<>();
         bestellingList.add(bestelling1);
@@ -126,12 +132,14 @@ public class BestellingsControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU5")))
-                .andExpect(jsonPath("$[0].fietsSerienummer", is("test")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("vav")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
                 .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU6")))
-                .andExpect(jsonPath("$[1].fietsSerienummer", is("test")))
+                .andExpect(jsonPath("$[1].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[1].fietsModel", is("vav")))
                 .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[1].voorschot", is(300)))
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
@@ -141,7 +149,8 @@ public class BestellingsControllerUnitTests {
     @Test
     public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {
         Bestelling bestelling = new Bestelling("testU7", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        bestelling.setFietsSerienummer("testPost");
+        bestelling.setFietsModel("testPost");
+        bestelling.setFietsMerk("testPostMerk");
 
         mockMvc.perform(post("/bestellingen")
                 .content(mapper.writeValueAsString(bestelling))
@@ -149,7 +158,8 @@ public class BestellingsControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.leverancierBonNummer", is("testU7")))
-                .andExpect(jsonPath("$.fietsSerienummer", is("testPost")))
+                .andExpect(jsonPath("$.fietsModel", is("testPost")))
+                .andExpect(jsonPath("$.fietsMerk", is("testPostMerk")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(20)))
                 .andExpect(jsonPath("$.prijs", is(50)));
@@ -159,13 +169,16 @@ public class BestellingsControllerUnitTests {
     @Test
     public void givenBestelling_whenPutBestelling_thenReturnJsonBestelling() throws Exception {
         Bestelling bestelling = new Bestelling("testU8", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
-        bestelling.setFietsSerienummer("testPut");
+        bestelling.setFietsMerk("testPut");
+        bestelling.setFietsModel("testPut");
 
         given(bestellingRepository.findBestellingByLeverancierBonNummer("testU8")).willReturn(bestelling);
 
         Bestelling updatedBestelling = new Bestelling("testU8", "Test@hotmail.com", LocalDateTime.now(), 50, 30);
-        updatedBestelling.setFietsSerienummer(null);
-        updatedBestelling.setOnderdeelSerienummer("testPut");
+        updatedBestelling.setFietsMerk(null);
+        updatedBestelling.setFietsModel(null);
+        updatedBestelling.setOnderdeelMerk("testPut");
+        updatedBestelling.setOnderdeelNaam("testPut");
 
         mockMvc.perform(put("/bestellingen")
                 .content(mapper.writeValueAsString(updatedBestelling))
@@ -174,7 +187,8 @@ public class BestellingsControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.leverancierBonNummer", is("testU8")))
                 //.andExpect(jsonPath("$.fietsSerienummer", is(null)))
-                .andExpect(jsonPath("$.onderdeelSerienummer", is("testPut")))
+                .andExpect(jsonPath("$.onderdeelNaam", is("testPut")))
+                .andExpect(jsonPath("$.onderdeelMerk", is("testPut")))
                 .andExpect(jsonPath("$.email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$.voorschot", is(30)))
                 .andExpect(jsonPath("$.prijs", is(50)));

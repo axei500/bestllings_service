@@ -58,8 +58,10 @@ public class BestellingController {
         Bestelling retrievedBestelling = bestellingRepository.findBestellingByLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
 
         //retrievedBestelling.setLeverancierBonNummer(updatedBestelling.getLeverancierBonNummer());
-        retrievedBestelling.setFietsSerienummer(updatedBestelling.getFietsSerienummer());
-        retrievedBestelling.setOnderdeelSerienummer(updatedBestelling.getOnderdeelSerienummer());
+        retrievedBestelling.setFietsMerk(updatedBestelling.getFietsMerk());
+        retrievedBestelling.setFietsModel(updatedBestelling.getFietsModel());
+        retrievedBestelling.setOnderdeelMerk(updatedBestelling.getOnderdeelMerk());
+        retrievedBestelling.setOnderdeelNaam(updatedBestelling.getOnderdeelNaam());
         //retrievedBestelling.setBestelDatum(updatedBestelling.getBestelDatum());
         retrievedBestelling.setVoorschot(updatedBestelling.getVoorschot());
         retrievedBestelling.setPrijs(updatedBestelling.getPrijs());

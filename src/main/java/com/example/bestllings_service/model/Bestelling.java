@@ -27,9 +27,10 @@ public class Bestelling {
     private int voorschot;
     private int prijs;
 
-    private String fietsSerienummer;
-    //eventuel voor appart onderdelen te bestellen
-    private String onderdeelSerienummer;
+    private String fietsMerk;
+    private String fietsModel;
+    private String onderdeelMerk;
+    private String onderdeelNaam;
 
     public Bestelling() {
 
@@ -59,22 +60,6 @@ public class Bestelling {
         this.bestelDatum = bestel_datum;
     }
 
-    public String getFietsSerienummer() {
-        return fietsSerienummer;
-    }
-
-    public void setFietsSerienummer(String fiets_serienummer) {
-        this.fietsSerienummer = fiets_serienummer;
-    }
-
-    public String getOnderdeelSerienummer() {
-        return onderdeelSerienummer;
-    }
-
-    public void setOnderdeelSerienummer(String onderdeel_serienummer) {
-        this.onderdeelSerienummer = onderdeel_serienummer;
-    }
-
     public int getVoorschot() {
         return voorschot;
     }
@@ -97,5 +82,37 @@ public class Bestelling {
 
     public void setLeverancierBonNummer(String leverancierBonNummer) {
         this.leverancierBonNummer = leverancierBonNummer;
+    }
+
+    public String getFietsMerk() {
+        return fietsMerk;
+    }
+
+    public void setFietsMerk(String fietsMerk) {
+        this.fietsMerk = fietsMerk;
+    }
+
+    public String getFietsModel() {
+        return fietsModel;
+    }
+
+    public void setFietsModel(String fietsModel) {
+        this.fietsModel = fietsModel;
+    }
+
+    public String getOnderdeelMerk() {
+        return onderdeelMerk;
+    }
+
+    public void setOnderdeelMerk(String onderdeelMerk) {
+        this.onderdeelMerk = onderdeelMerk;
+    }
+
+    public String getOnderdeelNaam() {
+        return onderdeelNaam;
+    }
+
+    public void setOnderdeelNaam(String onderdeelNaam) {
+        this.onderdeelNaam = onderdeelNaam;
     }
 }
