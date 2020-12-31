@@ -24,12 +24,13 @@ public class BestellingController {
         }
         System.out.println(bestellingRepository.findBestellingByEmailContaining("Test@hotmail.com"));
     }
-
+    //TODO add a get all
     @GetMapping("/bestellingen/email/{email}")
     public List<Bestelling> getBestelligenByEmail(@PathVariable String email) {
         return bestellingRepository.findBestellingByEmailContaining(email);
     }
 
+    //TODO combine or also add a route for both toghter to narrow down the search
     @GetMapping("/bestellingen/onderdeel/{onderdeelNaam}")
     public List<Bestelling> getBestellingenByOnderdeelNaam(@PathVariable String onderdeelNaam) {
         return bestellingRepository.findBestellingByOnderdeelNaamContaining(onderdeelNaam);
