@@ -29,7 +29,6 @@ public class BestellingController {
     public List<Bestelling> getBestelligenByEmail(@PathVariable String email) {
         return bestellingRepository.findBestellingByEmailContaining(email);
     }
-
     //TODO combine or also add a route for both toghter to narrow down the search
     @GetMapping("/bestellingen/onderdeel/{onderdeelNaam}")
     public List<Bestelling> getBestellingenByOnderdeelNaam(@PathVariable String onderdeelNaam) {
