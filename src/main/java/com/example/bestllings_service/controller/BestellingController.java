@@ -30,14 +30,14 @@ public class BestellingController {
         return bestellingRepository.findBestellingByEmailContaining(email);
     }
 
-    @GetMapping("/bestellingen/onderdeel/{onderdeelSerienummer}")
-    public List<Bestelling> getBestellingenByOnderdeelSerienummer(@PathVariable String onderdeelSerienummer) {
-        return bestellingRepository.findBestellingByOnderdeelSerienummerContaining(onderdeelSerienummer);
+    @GetMapping("/bestellingen/onderdeel/{onderdeelNaam}")
+    public List<Bestelling> getBestellingenByOnderdeelNaam(@PathVariable String onderdeelNaam) {
+        return bestellingRepository.findBestellingByOnderdeelNaamContaining(onderdeelNaam);
     }
 
-    @GetMapping("/bestellingen/fiets/{fietsSerienummer}")
-    public List<Bestelling> getBestellingenByFietsNummer(@PathVariable String fietsSerienummer) {
-        return bestellingRepository.findBestellingByFietsSerienummerContaining(fietsSerienummer);
+    @GetMapping("/bestellingen/fiets/{fietsMerk}")
+    public List<Bestelling> getBestellingenByFietsMerk(@PathVariable String fietsMerk) {
+        return bestellingRepository.findBestellingByFietsMerkContaining(fietsMerk);
     }
 
     @GetMapping("/bestelling/{leverancierBonNummer}")

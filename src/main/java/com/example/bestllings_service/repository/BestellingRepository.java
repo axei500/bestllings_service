@@ -12,8 +12,12 @@ public interface BestellingRepository extends JpaRepository<Bestelling, Integer>
 
     List<Bestelling> findBestellingByEmailContaining(String email);
 
-    List<Bestelling> findBestellingByFietsSerienummerContaining(String fietsSerienummer);
+    List<Bestelling> findBestellingByFietsMerkContaining(String fietsMerk);
 
-    List<Bestelling> findBestellingByOnderdeelSerienummerContaining(String onderdeelSerienummer);
+    List<Bestelling> findBestellingByFietsModelContaining(String fietsModel);
+
+    List<Bestelling> findBestellingByOnderdeelNaamContaining(String onderdeelNaam);
+
+    List<Bestelling> findBestellingByOnderdeelMerkContaining(String onderdeelMerk);
 
 }

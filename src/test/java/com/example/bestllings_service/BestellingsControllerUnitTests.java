@@ -75,24 +75,24 @@ public class BestellingsControllerUnitTests {
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
     }
 
-    // Multiple get by onderdeelnummer
+    // Multiple get by onderdeel naam
     @Test
-    public void givenBestellingen_whenGetBestelligenByOnderdeelSeriNummer_thenReturnJsonBestelligen() throws Exception {
+    public void givenBestellingen_whenGetBestelligenByOnderdeelNaam_thenReturnJsonBestelligen() throws Exception {
         Bestelling bestelling1 = new Bestelling("testU3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         Bestelling bestelling2 = new Bestelling("testU4", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
         bestelling1.setOnderdeelNaam("test");
         bestelling1.setOnderdeelMerk("vav");
-        bestelling2.setOnderdeelMerk("test");
+        bestelling2.setOnderdeelNaam("test");
         bestelling2.setOnderdeelMerk("vav");
 
         List<Bestelling> bestellingList = new ArrayList<>();
         bestellingList.add(bestelling1);
         bestellingList.add(bestelling2);
 
-        given(bestellingRepository.findBestellingByOnderdeelSerienummerContaining("test")).willReturn(bestellingList);
+        given(bestellingRepository.findBestellingByOnderdeelNaamContaining("test")).willReturn(bestellingList);
 
-        mockMvc.perform(get("/bestellingen/onderdeel/{onderdeelSerienummer}", "test"))
+        mockMvc.perform(get("/bestellingen/onderdeel/{onderdeelNaam}", "test"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -110,9 +110,9 @@ public class BestellingsControllerUnitTests {
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
     }
 
-    // Multiple get by fietsserienummer
+    // Multiple get by fiets merk
     @Test
-    public void givenBestellingen_whenGetBestelligenByFietsSeriNummer_thenReturnJsonBestelligen() throws Exception {
+    public void givenBestellingen_whenGetBestelligenByFietsMerk_thenReturnJsonBestelligen() throws Exception {
         Bestelling bestelling1 = new Bestelling("testU5", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         Bestelling bestelling2 = new Bestelling("testU6", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
 
@@ -125,15 +125,15 @@ public class BestellingsControllerUnitTests {
         bestellingList.add(bestelling1);
         bestellingList.add(bestelling2);
 
-        given(bestellingRepository.findBestellingByFietsSerienummerContaining("test")).willReturn(bestellingList);
+        given(bestellingRepository.findBestellingByFietsMerkContaining("test")).willReturn(bestellingList);
 
-        mockMvc.perform(get("/bestellingen/fiets/{fietsSerienummer}", "test"))
+        mockMvc.perform(get("/bestellingen/fiets/{fietsMerk}", "test"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU5")))
                 .andExpect(jsonPath("$[0].fietsMerk", is("test")))
-                .andExpect(jsonPath("$[0].fietsMerk", is("vav")))
+                .andExpect(jsonPath("$[0].fietsModel", is("vav")))
                 .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
                 .andExpect(jsonPath("$[0].voorschot", is(20)))
                 .andExpect(jsonPath("$[0].prijs", is(50)))
