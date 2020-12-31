@@ -35,9 +35,19 @@ public class BestellingController {
         return bestellingRepository.findBestellingByOnderdeelNaamContaining(onderdeelNaam);
     }
 
+    @GetMapping("/bestellingen/onderdeel/{onderdeelMerk}")
+    public List<Bestelling> getBestellingenByOnderdeelMerk(@PathVariable String onderdeelMerk) {
+        return bestellingRepository.findBestellingByOnderdeelMerkContaining(onderdeelMerk);
+    }
+
     @GetMapping("/bestellingen/fiets/{fietsMerk}")
     public List<Bestelling> getBestellingenByFietsMerk(@PathVariable String fietsMerk) {
         return bestellingRepository.findBestellingByFietsMerkContaining(fietsMerk);
+    }
+
+    @GetMapping("/bestellingen/fiets/{fietsModel}")
+    public List<Bestelling> getBestellingenByFietsModel(@PathVariable String fietsModel) {
+        return bestellingRepository.findBestellingByFietsModelContaining(fietsModel);
     }
 
     @GetMapping("/bestelling/{leverancierBonNummer}")
