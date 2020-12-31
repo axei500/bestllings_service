@@ -145,13 +145,38 @@ public class BestellingsControllerIntegrationTests {
     }
 
     @Test
-    public void givenBestellingen_whenGetBestelligenByFietsSeriNummer_thenReturnJsonBestelligen() throws Exception {
+    public void givenBestellingen_whenGetBestelligenByFietsSeriMerk_thenReturnJsonBestelligen() throws Exception {
 
         List<Bestelling> bestellingList = new ArrayList<>();
         bestellingList.add(bestelling3);
         bestellingList.add(bestelling5);
 
-        mockMvc.perform(get("/bestellingen/fiets/{fietsSerienummer}", "test"))
+        mockMvc.perform(get("/bestellingen/fiets/{fietsMerk}", "test"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testB3")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("test")))
+                .andExpect(jsonPath("$[0].email", is("User2@hotmail.com")))
+                .andExpect(jsonPath("$[0].voorschot", is(100)))
+                .andExpect(jsonPath("$[0].prijs", is(500)))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testB4")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("test")))
+                .andExpect(jsonPath("$[1].email", is("User2@hotmail.com")))
+                .andExpect(jsonPath("$[1].voorschot", is(100)))
+                .andExpect(jsonPath("$[1].prijs", is(500)));
+    }
+
+    @Test
+    public void givenBestellingen_whenGetBestelligenByFietsSeriModel_thenReturnJsonBestelligen() throws Exception {
+
+        List<Bestelling> bestellingList = new ArrayList<>();
+        bestellingList.add(bestelling3);
+        bestellingList.add(bestelling5);
+
+        mockMvc.perform(get("/bestellingen/fietsModel/{fietsModel}", "test"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
