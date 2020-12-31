@@ -56,3 +56,10 @@ jobs:
       run: docker build -t ${{ secrets.DOCKER_USER }}/bestellings-service:latest .
     - name: Upload to docker
       run: docker push ${{ secrets.DOCKER_USER }}/bestellings-service:latest
+    
+    - name: Deploy to heroku using an action
+      uses: akhileshns/heroku-deploy@v3.2.6
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
+        heroku_app_name: "Huax-Bestellings-service" #Must be unique in Heroku
+        heroku_email: "axelhuybrechts@hotmail.com"
