@@ -63,3 +63,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
         heroku_app_name: "huax-bestellings-service" #Must be unique in Heroku
         heroku_email: "axelhuybrechts@hotmail.com"
+        branch : master  
