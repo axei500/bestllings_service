@@ -20,4 +20,8 @@ public interface BestellingRepository extends JpaRepository<Bestelling, Integer>
 
     List<Bestelling> findBestellingByOnderdeelMerkContaining(String onderdeelMerk);
 
+    List<Bestelling> findBestellingByFietsModelAndFietsMerk(String fietsModel, String fietsMerk);
+
+    List<Bestelling> findBestellingByOnderdeelMerkAndAndOnderdeelNaam(String onderdeelMerk, String onderdeelNaam);
+
 }

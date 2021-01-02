@@ -195,6 +195,31 @@ public class BestellingsControllerIntegrationTests {
     }
 
     @Test
+    public void givenBestellingen_whenGetBestelligenByFiets_thenReturnJsonBestelligen() throws Exception {
+
+        List<Bestelling> bestellingList = new ArrayList<>();
+        bestellingList.add(bestelling1);
+        bestellingList.add(bestelling2);
+
+        mockMvc.perform(get("/bestellingen/fietsModel/{fietsModel}/fietsMerk/{fietsMerk}", "test", "test"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testB3")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("test")))
+                .andExpect(jsonPath("$[0].email", is("User2@hotmail.com")))
+                .andExpect(jsonPath("$[0].voorschot", is(100)))
+                .andExpect(jsonPath("$[0].prijs", is(500)))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testB4")))
+                .andExpect(jsonPath("$[1].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[1].fietsModel", is("test")))
+                .andExpect(jsonPath("$[1].email", is("User2@hotmail.com")))
+                .andExpect(jsonPath("$[1].voorschot", is(100)))
+                .andExpect(jsonPath("$[1].prijs", is(500)));
+    }
+
+    @Test
     public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {
         Bestelling bestellingPost = new Bestelling("test3", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
         bestellingPost.setFietsMerk("testPost");

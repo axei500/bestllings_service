@@ -215,6 +215,40 @@ public class BestellingsControllerUnitTests {
                 .andExpect(jsonPath("$[1].prijs", is(1000)));
     }
 
+    @Test
+    public void givenBestellingen_whenGetBestelligenByFiets_thenReturnJsonBestelligen() throws Exception {
+        Bestelling bestelling1 = new Bestelling("testU5", "Test@hotmail.com", LocalDateTime.now(), 50, 20);
+        Bestelling bestelling2 = new Bestelling("testU6", "Test@hotmail.com", LocalDateTime.now(), 1000, 300);
+
+        bestelling1.setFietsMerk("test");
+        bestelling1.setFietsModel("vav");
+        bestelling2.setFietsMerk("test");
+        bestelling2.setFietsModel("vav");
+
+        List<Bestelling> bestellingList = new ArrayList<>();
+        bestellingList.add(bestelling1);
+        bestellingList.add(bestelling2);
+
+        given(bestellingRepository.findBestellingByFietsModelAndFietsMerk("test", "vav")).willReturn(bestellingList);
+
+        mockMvc.perform(get("/bestellingen/fietsModel/{fietsModel}/fietsMerk/{fietsMerk}", "test", "vav"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].leverancierBonNummer", is("testU5")))
+                .andExpect(jsonPath("$[0].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[0].fietsModel", is("vav")))
+                .andExpect(jsonPath("$[0].email", is("Test@hotmail.com")))
+                .andExpect(jsonPath("$[0].voorschot", is(20)))
+                .andExpect(jsonPath("$[0].prijs", is(50)))
+                .andExpect(jsonPath("$[1].leverancierBonNummer", is("testU6")))
+                .andExpect(jsonPath("$[1].fietsMerk", is("test")))
+                .andExpect(jsonPath("$[1].fietsModel", is("vav")))
+                .andExpect(jsonPath("$[1].email", is("Test@hotmail.com")))
+                .andExpect(jsonPath("$[1].voorschot", is(300)))
+                .andExpect(jsonPath("$[1].prijs", is(1000)));
+    }
+
     // Post bestteling
     @Test
     public void whenPostBestteling_thenReturnJsonBestelling() throws Exception {

@@ -29,6 +29,7 @@ public class BestellingController {
     public List<Bestelling> getBestelligenByEmail(@PathVariable String email) {
         return bestellingRepository.findBestellingByEmailContaining(email);
     }
+
     //TODO combine or also add a route for both toghter to narrow down the search
     @GetMapping("/bestellingen/onderdeel/{onderdeelNaam}")
     public List<Bestelling> getBestellingenByOnderdeelNaam(@PathVariable String onderdeelNaam) {
@@ -40,6 +41,11 @@ public class BestellingController {
         return bestellingRepository.findBestellingByOnderdeelMerkContaining(onderdeelMerk);
     }
 
+    @GetMapping("/bestellingen/onderdeelMerk/{onderdeelMerk}/onderdeelNaam/{onderdeelNaam}")
+    public List<Bestelling> getBestellingenByOnderdeel(@PathVariable String onderdeelMerk, @PathVariable String onderdeelNaam) {
+        return bestellingRepository.findBestellingByOnderdeelMerkAndAndOnderdeelNaam(onderdeelMerk, onderdeelNaam);
+    }
+
     @GetMapping("/bestellingen/fiets/{fietsMerk}")
     public List<Bestelling> getBestellingenByFietsMerk(@PathVariable String fietsMerk) {
         return bestellingRepository.findBestellingByFietsMerkContaining(fietsMerk);
@@ -48,6 +54,11 @@ public class BestellingController {
     @GetMapping("/bestellingen/fietsModel/{fietsModel}")
     public List<Bestelling> getBestellingenByFietsModel(@PathVariable String fietsModel) {
         return bestellingRepository.findBestellingByFietsModelContaining(fietsModel);
+    }
+
+    @GetMapping("/bestellingen/fietsModel/{fietsModel}/fietsMerk/{fietsMerk}")
+    public List<Bestelling> getBestellingenByFiets(@PathVariable String fietsModel, @PathVariable String fietsMerk) {
+        return bestellingRepository.findBestellingByFietsModelAndFietsMerk(fietsModel, fietsMerk);
     }
 
     @GetMapping("/bestelling/{leverancierBonNummer}")
